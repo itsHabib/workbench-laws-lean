@@ -1,0 +1,26 @@
+Command: lake build
+Lean: 4.32.2 (commit f3b06c705e6c85f5314019d5d3baab0fec5b580c)
+Recorded: 2026-08-08
+
+'WorkbenchLaws.Verdict.code_block_dominates' depends on axioms: [propext]
+'WorkbenchLaws.Verdict.missing_floor_never_passes' depends on axioms: [propext]
+'WorkbenchLaws.Verdict.local_block_is_refused' depends on axioms: [propext]
+'WorkbenchLaws.Verdict.unknown_producer_or_decision_never_authorizes' depends on axioms: [propext]
+'WorkbenchLaws.Verdict.tier_is_monotone' depends on axioms: [propext, Quot.sound]
+'WorkbenchLaws.Verdict.judgment_cannot_launder_missing_floor' depends on axioms: [propext]
+'WorkbenchLaws.Verdict.permutation_invariant_decision_and_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WorkbenchLaws.Verdict.raw_tier_first_max_wins' does not depend on any axioms
+'WorkbenchLaws.Verdict.unknown_tier_has_top_rank' depends on axioms: [propext]
+
+'WorkbenchLaws.Verdict.tierWithin_full_cross_product' does not depend on any axioms
+'WorkbenchLaws.Verdict.unknown_candidate_within_t3' does not depend on any axioms
+'WorkbenchLaws.Verdict.empty_candidate_within_t3' does not depend on any axioms
+'WorkbenchLaws.Verdict.unknown_candidate_not_within_t2' does not depend on any axioms
+'WorkbenchLaws.Verdict.invalid_ceiling_authorizes_nothing' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'WorkbenchLaws.Verdict.missing_floor_mutation_has_counterexample' does not depend on any axioms
+'WorkbenchLaws.Verdict.local_block_mutation_has_counterexample' does not depend on any axioms
+'WorkbenchLaws.Verdict.dominance_mutation_has_counterexample' does not depend on any axioms
+
+No output contains sorryAx. The listed dependencies are Lean's standard logical
+axioms; the project declares no axioms of its own.

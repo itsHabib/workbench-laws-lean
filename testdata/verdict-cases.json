@@ -1,0 +1,113 @@
+{
+  "schema": "gate-verdict-fixtures-v1",
+  "workbench_commit": "6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1",
+  "projection": ["refusal_class", "decision", "tier_rank"],
+  "cases": [
+    {
+      "id": "code-block-dominates-judgment-pass",
+      "inputs": [
+        {"producer": "code", "decision": "block", "tier": "T0", "source": "readiness"},
+        {"producer": "judgment", "decision": "pass", "tier": "T0", "source": "operator"}
+      ],
+      "expected": {"decision": "block", "tier_rank": 0}
+    },
+    {
+      "id": "empty-input-escalates",
+      "inputs": [],
+      "expected": {"decision": "escalate", "tier_rank": 0}
+    },
+    {
+      "id": "judgment-cannot-launder-missing-floor",
+      "inputs": [
+        {"producer": "local", "decision": "pass", "tier": "T0", "source": "review-consolidation"},
+        {"producer": "judgment", "decision": "pass", "tier": "T0", "source": "operator"}
+      ],
+      "expected": {"decision": "escalate", "tier_rank": 0}
+    },
+    {
+      "id": "local-block-refused",
+      "inputs": [
+        {"producer": "local", "decision": "block", "tier": "T0", "source": "review-consolidation"}
+      ],
+      "expected": {"refusal_class": "localBlock"}
+    },
+    {
+      "id": "unknown-producer-refused",
+      "inputs": [
+        {"producer": "remote-model", "decision": "pass", "tier": "T0", "source": "mystery"}
+      ],
+      "expected": {"refusal_class": "unknownProducer"}
+    },
+    {
+      "id": "unknown-decision-refused",
+      "inputs": [
+        {"producer": "code", "decision": "", "tier": "T0", "source": "readiness"}
+      ],
+      "expected": {"refusal_class": "unknownDecision"}
+    },
+    {
+      "id": "multi-invalid-decision-first",
+      "inputs": [
+        {"producer": "code", "decision": "approved", "tier": "T0", "source": "first"},
+        {"producer": "remote-model", "decision": "pass", "tier": "T0", "source": "second"}
+      ],
+      "expected": {"refusal_class": "unknownDecision"}
+    },
+    {
+      "id": "multi-invalid-producer-first",
+      "inputs": [
+        {"producer": "remote-model", "decision": "pass", "tier": "T0", "source": "first"},
+        {"producer": "code", "decision": "approved", "tier": "T0", "source": "second"}
+      ],
+      "expected": {"refusal_class": "unknownProducer"}
+    },
+    {
+      "id": "arbitrary-source-is-floor",
+      "inputs": [
+        {"producer": "code", "decision": "pass", "tier": "T0", "source": "arbitrary-source"}
+      ],
+      "expected": {"decision": "pass", "tier_rank": 0}
+    },
+    {
+      "id": "enrichment-source-code-block-dominates",
+      "inputs": [
+        {"producer": "code", "decision": "block", "tier": "T0", "source": "ci-classify"}
+      ],
+      "expected": {"decision": "block", "tier_rank": 0}
+    },
+    {
+      "id": "unknown-tier-preserved",
+      "inputs": [
+        {"producer": "code", "decision": "pass", "tier": "garbage", "source": "triage-floor"}
+      ],
+      "expected": {"decision": "pass", "tier_rank": 3},
+      "observed_raw_tier": "garbage"
+    },
+    {
+      "id": "rank-tie-t3-first",
+      "inputs": [
+        {"producer": "code", "decision": "pass", "tier": "T3", "source": "readiness"},
+        {"producer": "code", "decision": "pass", "tier": "garbage", "source": "triage-floor"}
+      ],
+      "expected": {"decision": "pass", "tier_rank": 3},
+      "observed_raw_tier": "T3"
+    },
+    {
+      "id": "rank-tie-unknown-first",
+      "inputs": [
+        {"producer": "code", "decision": "pass", "tier": "garbage", "source": "triage-floor"},
+        {"producer": "code", "decision": "pass", "tier": "T3", "source": "readiness"}
+      ],
+      "expected": {"decision": "pass", "tier_rank": 3},
+      "observed_raw_tier": "garbage"
+    },
+    {
+      "id": "empty-tier-is-top-rank",
+      "inputs": [
+        {"producer": "code", "decision": "pass", "tier": "", "source": "readiness"}
+      ],
+      "expected": {"decision": "pass", "tier_rank": 3},
+      "observed_raw_tier": ""
+    }
+  ]
+}

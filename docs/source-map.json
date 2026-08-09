@@ -1,0 +1,64 @@
+{
+  "schema": "gate-verdict-source-map-v1",
+  "workbench_repository": "/Users/mh/dev/workbench",
+  "workbench_commit": "6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1",
+  "model_authority": "independent-phase-0-model-only",
+  "conformance_projection": ["refusal_class", "decision", "tier_rank"],
+  "raw_tier_projection_policy": "excluded; if later compared, reproduce first-strict-maximum exactly",
+  "rows": [
+    {
+      "go_rule": "ordered producer-decision-local-block validation",
+      "go_source": "cmd/gate/internal/verify/verify.go:121-131",
+      "lean_definition": "WorkbenchLaws.Verdict.validate",
+      "theorem": ["local_block_is_refused", "unknown_producer_or_decision_never_authorizes"],
+      "fixtures": ["local-block-refused", "unknown-producer-refused", "unknown-decision-refused", "multi-invalid-decision-first", "multi-invalid-producer-first"],
+      "excluded_assumptions": ["JSON decoding", "artifact provenance"],
+      "reachability_notes": "Raw strings are intentionally representable."
+    },
+    {
+      "go_rule": "only ci-classify is enrichment for floor presence",
+      "go_source": "cmd/gate/internal/verify/verify.go:133-140; cmd/gate/internal/verify/ciclassify.go:21-23",
+      "lean_definition": "WorkbenchLaws.Verdict.isFloorSource; WorkbenchLaws.Verdict.isFloor",
+      "theorem": ["missing_floor_never_passes", "judgment_cannot_launder_missing_floor"],
+      "fixtures": ["empty-input-escalates", "judgment-cannot-launder-missing-floor", "arbitrary-source-is-floor"],
+      "excluded_assumptions": ["source allow-list", "producer call path"],
+      "reachability_notes": "All source strings other than the one literal count as floor for code producers."
+    },
+    {
+      "go_rule": "code block dominance is source-blind",
+      "go_source": "cmd/gate/internal/verify/verify.go:148-150,159-166",
+      "lean_definition": "WorkbenchLaws.Verdict.hasCodeBlock; WorkbenchLaws.Verdict.composedDecision",
+      "theorem": ["code_block_dominates"],
+      "fixtures": ["code-block-dominates-judgment-pass", "enrichment-source-code-block-dominates"],
+      "excluded_assumptions": ["reason text", "escalation reason accumulation"],
+      "reachability_notes": "The model does not restrict source on code blocks."
+    },
+    {
+      "go_rule": "tier replacement occurs only at strictly greater rank",
+      "go_source": "cmd/gate/internal/verify/verify.go:142-144; cmd/gate/internal/tier/tier.go:10-22",
+      "lean_definition": "WorkbenchLaws.Verdict.chooseHigherTier; WorkbenchLaws.Verdict.composedTier",
+      "theorem": ["tier_is_monotone", "permutation_invariant_decision_and_rank", "raw_tier_first_max_wins", "unknown_tier_has_top_rank"],
+      "fixtures": ["unknown-tier-preserved", "rank-tie-t3-first", "rank-tie-unknown-first", "empty-tier-is-top-rank"],
+      "excluded_assumptions": ["raw-tier canonicalization", "unknown-tier refusal", "confidence"],
+      "reachability_notes": "Foreign or drifted artifacts can carry unknown or empty raw tiers into this reducer boundary."
+    },
+    {
+      "go_rule": "last judgment wins after block and floor checks",
+      "go_source": "cmd/gate/internal/verify/verify.go:118,155-180",
+      "lean_definition": "WorkbenchLaws.Verdict.lastJudgmentDecision; WorkbenchLaws.Verdict.composedDecision",
+      "theorem": ["permutation_invariant_decision_and_rank"],
+      "fixtures": ["code-block-dominates-judgment-pass", "judgment-cannot-launder-missing-floor"],
+      "excluded_assumptions": ["multiple-judgment refusal"],
+      "reachability_notes": "Permutation theorem requires at most one judgment; faithful reduction itself does not."
+    },
+    {
+      "go_rule": "TierWithin validates ceiling only and compares candidate rank",
+      "go_source": "cmd/gate/internal/capability/capability.go:140-148",
+      "lean_definition": "WorkbenchLaws.Verdict.tierWithin",
+      "theorem": ["tierWithin_full_cross_product", "unknown_candidate_within_t3", "empty_candidate_within_t3", "unknown_candidate_not_within_t2", "invalid_ceiling_authorizes_nothing"],
+      "fixtures": [],
+      "excluded_assumptions": ["grant signatures", "grant expiry", "grant scope"],
+      "reachability_notes": "Current owned producers validate or pin tiers before live-run use; unknown candidates require a foreign or drifted artifact."
+    }
+  ]
+}
