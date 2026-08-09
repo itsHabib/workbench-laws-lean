@@ -256,7 +256,7 @@ labels.
 leading) formalizes gate's second kernel end to end.
 
 Scope: `capability.go` — `Verify`'s binding/expiry/scope checks
-(capability.go:120-138), `TierWithin` (:143-148), `CyclesWithin`
+(capability.go:120-138), `TierWithin` (:140-148, per source-map.md), `CyclesWithin`
 (:153-155). Model raw grant → validated grant; laws to state and prove:
 expired-never-authorizes, scope-mismatch-never-authorizes,
 invalid-ceiling-authorizes-nothing (already touched in TierWithin.lean —

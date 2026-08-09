@@ -1,6 +1,12 @@
 name = "workbench-laws"
 version = "0.1.0"
-defaultTargets = ["WorkbenchLaws"]
+defaultTargets = ["WorkbenchLaws", "Solutions"]
 
 [[lean_lib]]
 name = "WorkbenchLaws"
+
+# Curriculum solutions. A separate lib so the teaching code never sits on the
+# proof project's import path; it reuses WorkbenchLaws' types read-only.
+[[lean_lib]]
+name = "Solutions"
+srcDir = "docs/learn/modules/01-lean-is-a-language"
