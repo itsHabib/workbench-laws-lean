@@ -19,13 +19,13 @@ that cannot be connected to the current Go implementation.
 The initial kickoff said Gate rejects an unknown tier and proposed
 `unknownTier` as a refusal. The actual reducer preserves an unknown tier string.
 `tier.Rank` maps every unknown value to rank 3
-(`/Users/mh/dev/workbench/cmd/gate/internal/tier/tier.go:5-22`), and the existing
+([`cmd/gate/internal/tier/tier.go:5-22`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/tier/tier.go#L5-L22)), and the existing
 test explicitly expects `"garbage"` to survive reduction at rank 3
-(`/Users/mh/dev/workbench/cmd/gate/internal/verify/verify_test.go:785-798`).
+([`cmd/gate/internal/verify/verify_test.go:785-798`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/verify/verify_test.go#L785-L798)).
 
 This is described as fail-closed, but `Grant.TierWithin` validates the grant's
 ceiling and then compares ranks; it does not validate the candidate tier
-(`/Users/mh/dev/workbench/cmd/gate/internal/capability/capability.go:140-148`).
+([`cmd/gate/internal/capability/capability.go:140-148`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/capability/capability.go#L140-L148)).
 Therefore an unknown candidate tier appears capable of comparing within a T3
 grant. That implication must be reproduced and checked before the POC claims
 unknown tiers cannot authorize.

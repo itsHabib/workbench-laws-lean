@@ -14,7 +14,7 @@ Determine whether Lean 4 can state and mechanically prove laws about Gate's
 verdict ladder meaningfully stronger than its example + Rapid property tests —
 without the model becoming production authority or a second policy
 implementation. Specification archaeology; Go stays behavioral truth; the
-project stays outside `/Users/mh/dev/workbench`; nothing consumes Lean output
+project stays outside the [workbench repository](https://github.com/itsHabib/workbench); nothing consumes Lean output
 to permit a merge.
 
 ## Model (revised where reviews required)

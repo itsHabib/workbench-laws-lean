@@ -1,6 +1,6 @@
 {
   "schema": "gate-verdict-source-map-v1",
-  "workbench_repository": "/Users/mh/dev/workbench",
+  "workbench_repository": "https://github.com/itsHabib/workbench",
   "workbench_commit": "6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1",
   "model_authority": "independent-phase-0-model-only",
   "conformance_projection": ["refusal_class", "decision", "tier_rank"],

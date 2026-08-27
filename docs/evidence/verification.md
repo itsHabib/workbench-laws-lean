@@ -4,7 +4,7 @@ Date: 2026-08-08
 
 Baseline source:
 
-- Workbench path: `/Users/mh/dev/workbench`
+- Workbench path: the [workbench repository](https://github.com/itsHabib/workbench)
 - Exact commit: `6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1`
 - The live checkout resolved to that same commit during source archaeology.
 

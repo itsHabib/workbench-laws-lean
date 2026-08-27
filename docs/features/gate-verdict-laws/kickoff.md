@@ -18,10 +18,10 @@ the behavioral source of truth. The POC extracts a deliberately small formal
 model, proves named laws, and records every assumption needed to connect those
 proofs back to the running implementation.
 
-The project stays outside `/Users/mh/dev/workbench`. That honors Workbench's
+The project stays outside the [workbench repository](https://github.com/itsHabib/workbench). That honors Workbench's
 boundary law: tools share versioned artifacts and vocabulary, never another
 tool's decision call stack
-(`/Users/mh/dev/workbench/docs/DESIGN.md:43-72`). Initial conformance uses frozen
+([`docs/DESIGN.md:43-72`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/docs/DESIGN.md#L43-L72)). Initial conformance uses frozen
 fixtures; no Workbench code or CI is changed by this POC.
 
 ## What exists today
@@ -32,21 +32,21 @@ Gate already has an unusually good first proof target:
   lowered, local models may pass or escalate but never block, judgment may
   resolve escalation but cannot override a code block, and tier/confidence
   compose monotonically
-  (`/Users/mh/dev/workbench/cmd/gate/internal/verify/verify.go:1-12`).
+  ([`cmd/gate/internal/verify/verify.go:1-12`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/verify/verify.go#L1-L12)).
 - The reducer rejects unknown producers/decisions and local-model blocks, needs
   a real code floor before passing, and resolves decisions in an explicit order
-  (`/Users/mh/dev/workbench/cmd/gate/internal/verify/verify.go:73-188`).
+  ([`cmd/gate/internal/verify/verify.go:73-188`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/verify/verify.go#L73-L188)).
 - Unknown tiers are different: the reducer preserves the unknown string and
   `tier.Rank` maps it to top rank T3 rather than refusing it
-  (`/Users/mh/dev/workbench/cmd/gate/internal/tier/tier.go:5-22`,
-  `/Users/mh/dev/workbench/cmd/gate/internal/verify/verify_test.go:785-798`).
+  ([`cmd/gate/internal/tier/tier.go:5-22`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/tier/tier.go#L5-L22),
+  [`cmd/gate/internal/verify/verify_test.go:785-798`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/verify/verify_test.go#L785-L798)).
 - Existing Rapid tests compare the reducer with an independently shaped oracle,
   permute inputs, and generate unknown/local-block cases
-  (`/Users/mh/dev/workbench/cmd/gate/internal/verify/property_test.go:12-17`,
+  ([`cmd/gate/internal/verify/property_test.go:12-17`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/verify/property_test.go#L12-L17),
   `:57-92`, `:114-211`).
 - The property suite honestly restricts order-independence to at most one
   judgment because multiple judgments currently make last-one-win order
-  observable (`/Users/mh/dev/workbench/cmd/gate/internal/verify/property_test.go:21-27`).
+  observable ([`cmd/gate/internal/verify/property_test.go:21-27`](https://github.com/itsHabib/workbench/blob/6eee6aa63ff0d7bcaf127b9cdf4f5af748659ac1/cmd/gate/internal/verify/property_test.go#L21-L27)).
 
 The POC must add assurance beyond restating these tests in prettier notation.
 
